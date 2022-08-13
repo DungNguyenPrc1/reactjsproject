@@ -1,0 +1,17 @@
+.cover-btn-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-pagination {
+    list-style: none;
+    padding: 10px;
+    border: solid 1px;
+    margin: 5px;
+    &:hover {
+        border: solid 1px var(--primary);
+    }
+}
+.btn-pagination > a {
+    padding: 10px;
+}

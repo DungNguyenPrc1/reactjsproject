@@ -1,0 +1,15 @@
+.wrapper {
+    padding: 24px 0;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 104px;
+    // align-items: center;
+    & .title {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+    }
+}

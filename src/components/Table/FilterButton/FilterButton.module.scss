@@ -1,0 +1,18 @@
+.wrapper {
+    height: 30px;
+    width: 66px;
+    border: solid 1px #ccc;
+    margin-right: 20px;
+    font-weight: 600;
+    background-color: #fff;
+    opacity: 0.8;
+    &.active {
+        color: var(--primary);
+        height: 56px;
+        width: 89px;
+        opacity: 1;
+        border-bottom: none;
+        border-radius: 0;
+        // transition: opacity 0.2s;
+    }
+}

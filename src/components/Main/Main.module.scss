@@ -1,0 +1,72 @@
+.wrapper {
+    position: relative;
+    background-color: var(--primary);
+    // min-height: 800px;
+
+    // border: solid;
+}
+.logo {
+    position: absolute;
+    width: 219.2px;
+    height: 64px;
+    left: 610px;
+    top: 104px;
+}
+.content {
+    position: inherit;
+    padding: 32px 24px;
+
+    height: 392px;
+    left: 35.83%;
+    right: 35.83%;
+    top: 200px;
+    width: 408px;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.24);
+    border-radius: 4px;
+}
+.title {
+    font-size: 24px;
+    line-height: 40px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.title-1 {
+    margin-top: 0;
+    line-height: 16px;
+    // padding-top: 4px;
+    margin-bottom: 24px;
+}
+.fill-sign-in {
+    margin-top: 20px;
+}
+.input-sign-in {
+    // display: block;
+    width: 360px;
+    height: 40px;
+    left: 0%;
+    right: 0%;
+    top: 20px;
+}
+.label-form {
+    display: block;
+}
+.btn-modify {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    padding-left: 0;
+}
+.footer-sign-in {
+    margin-top: 20px;
+    // margin-bottom: 32px;
+}
+.errorMsg {
+    display: flex;
+    align-content: center;
+    line-height: 25px;
+    color: rgb(165, 4, 4);
+    font-size: 16px;
+    background-color: red;
+    height: 25px;
+}

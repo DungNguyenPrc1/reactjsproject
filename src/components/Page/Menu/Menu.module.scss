@@ -1,0 +1,35 @@
+.menu-item {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 24px;
+    width: inherit;
+
+    height: 40px;
+}
+.wrapper {
+    margin-top: 0;
+}
+.title {
+    margin: 4px 0 8px 0;
+    // background-color: aliceblue;
+}
+
+.title-childers {
+    color: white;
+    padding: 0 16px 0 82px;
+    line-height: 48px;
+    margin: 4px 0 8px 0;
+    opacity: 0.8;
+
+    // display: none;
+    // height: 130px;
+    cursor: pointer;
+    &:hover {
+        font-weight: 600;
+    }
+}
+.wrapper .active {
+    &.title-childers {
+        display: block;
+    }
+}

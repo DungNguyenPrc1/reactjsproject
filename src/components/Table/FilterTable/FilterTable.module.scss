@@ -1,0 +1,77 @@
+.wrapper {
+    background-color: #fff;
+    padding: 24px;
+    display: flex;
+    // justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 1056px;
+    height: 422px;
+    display: none;
+
+    &.active {
+        display: flex;
+    }
+}
+.wrapper-mini {
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+input {
+    height: 40px;
+    width: 233.5px;
+    padding: 8px 11px;
+    background-color: #f0f2f5 !important;
+}
+.title-search {
+    font-weight: 600;
+}
+.wrapper-input {
+    position: relative;
+    margin-top: 4px;
+}
+.calendar {
+    width: 280px;
+    z-index: 10px;
+    position: fixed;
+    z-index: 10;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    background-color: #fff;
+    text-align: center;
+    padding: 8px 16px;
+    top: 230px;
+    left: 515px;
+    &.activeCalendar {
+        display: none;
+    }
+}
+
+.icon-input {
+    position: absolute;
+    top: 15px;
+    left: 215px;
+}
+.footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+    & button {
+        font-size: 14px;
+        padding: 8px 15px;
+        font-weight: 600;
+        color: var(--primary);
+        height: 40px;
+    }
+    & button:first-child {
+        color: #888;
+    }
+    & button:last-child {
+        color: white;
+        background-color: var(--primary);
+        margin-left: 10px;
+    }
+}
+.footer-icon {
+    padding-left: 8px;
+}

@@ -1,0 +1,46 @@
+@import 'normalize.css';
+@import url('https://rsms.me/inter/inter.css');
+html {
+    font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+    html {
+        font-family: 'Inter var', sans-serif;
+    }
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --primary: #1f3998;
+    --primary-text: #212121;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--primary-text);
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    text-rendering: optimizespeed;
+}
+h1 {
+    font-weight: 500;
+}
+Link,
+a {
+    text-decoration: none;
+}
+
+input,
+button {
+    background-color: inherit;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+}
