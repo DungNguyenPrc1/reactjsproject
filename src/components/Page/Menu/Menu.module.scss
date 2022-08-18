@@ -12,6 +12,9 @@
 .title {
     margin: 4px 0 8px 0;
     // background-color: aliceblue;
+    &:hover {
+        font-weight: 800;
+    }
 }
 
 .title-childers {

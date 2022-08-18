@@ -12,15 +12,21 @@ function Menu({ items = [] }) {
 
     const [active, setActive] = useState(-1);
     const [changeColor, setChangeColor] = useState(false);
+
     return items.map((item, index) => {
         const handleClick = () => {
-            setChangeColor(!changeColor);
-            index === active ? setActive(-1) : setActive(index);
+            // if ((index = item.id)) {
+            //     setChangeColor(!changeColor);
+            // }
         };
-
         return (
-            <div className={cx('title')} key={index} onClick={handleClick}>
-                <div style={{ background: changeColor ? '#ccc' : '' }}>
+            <div
+                className={cx('title')}
+                key={index}
+                style={{ background: changeColor ? '#ccc' : '' }}
+                onClick={handleClick}
+            >
+                <div>
                     {item.path ? (
                         <Link to={`${item.path}`}>
                             <MenuItem data={item} />

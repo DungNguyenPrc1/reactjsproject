@@ -40,18 +40,16 @@ function Route() {
     ];
 
     const [lists, setLists] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(10);
     const [totalPosts, setTotalPosts] = useState();
     const [dataFilter, setDataFilter] = useState({});
+    // const [filteredResult, setFilteredResult] = useState([]);
 
     const [filterActive, setFilterActive] = useState(false);
-    const [id, setId] = useState('');
-    const handleFilter = (e) => {
-        e.preventDefault();
-        console.log(id);
-    };
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -70,7 +68,33 @@ function Route() {
     }, [currentPage, postPerPage]);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    console.log(filterActive);
+
+    const handleFilter = (e) => {
+        e.preventDefault();
+        // switch (dataFilter[type]) {
+        //     case 'id':
+        //         const filteredData = lists.filter((list) => {
+        //             list.id.toLowerCase().includes(dataFilter.id.toLowerCase());
+        //         });
+        //         setFilteredResult(filteredData);
+        // }
+        // const listsFilter = lists.filter((list) => {
+        //     return list?.id?.toLowerCase().includes(dataFilter.id.toLowerCase());
+        // console.log(list.id.toLowerCase().includes(dataFilter.id.toLowerCase()));
+
+        // switch (dataFilter)
+        // {
+        //     case id:
+
+        // }
+        // });
+
+        // console.log(filterData === {});
+    };
+    const onChangePage = (page, value) => {
+        setCurrentPage({ ...currentPage, [page]: value });
+    };
+
     const onChangeValue = (type, value) => {
         setDataFilter({
             ...dataFilter,

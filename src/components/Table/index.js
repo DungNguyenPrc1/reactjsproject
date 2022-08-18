@@ -1,13 +1,16 @@
 import styles from './Table.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare, faRoute, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faCircle, faRoute, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Table({ headerTable, postsTable, loading, postsHistory }) {
+function Table({ headerTable, postsTable, loading, postsHistory, className, ...passPros }) {
+    const props = { ...passPros };
+    const classes = cx('wrapper', { [className]: className });
+    // console.log('table className', classes);
     return (
-        <div>
+        <div className={classes} {...props}>
             <table className={cx('table-wrapper')}>
                 <thead className={cx('table-head')}>
                     <tr className={cx('table')}>
@@ -42,7 +45,8 @@ function Table({ headerTable, postsTable, loading, postsHistory }) {
                                     <td>{list.workingMins}</td>
                                     <td>{list.vehicle?.name}</td>
                                     <td>
-                                        {<button className={cx('btn-status')}>{list.status?.toUpperCase()}</button>}
+                                        <button>{<FontAwesomeIcon icon={faCircle} />}</button>
+                                        <button className={cx('btn-status')}>{list?.status}</button>
                                     </td>
                                     <td>
                                         <button>{<FontAwesomeIcon icon={faArrowUpRightFromSquare} />}</button>

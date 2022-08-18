@@ -6,10 +6,13 @@ import Table from '../Table';
 import axios from '~/utils/request';
 
 import { useState, useEffect } from 'react';
+import Pagination from '../Pagination';
 
 const cx = classNames.bind(styles);
 
 function History() {
+    const [activeFilter, setActiveFilter] = useState(false);
+
     const titleTable = [
         { id: 1, title: 'ID' },
         { id: 2, title: 'Client' },
@@ -28,7 +31,14 @@ function History() {
         { id: 15, title: '' },
     ];
     const [postsHistory, setPostsHistory] = useState([]);
+
+    const [postPerPage, setPostPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPosts, setTotalPosts] = useState();
     const [loading, setLoading] = useState(false);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     useEffect(() => {
         const axiosData = async () => {
             setLoading(true);
@@ -40,6 +50,7 @@ function History() {
                 },
             );
             setPostsHistory(response?.data.data);
+            setTotalPosts(response?.data.metadata.totalItems);
             console.log(response);
         };
         axiosData();
@@ -49,10 +60,21 @@ function History() {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <p className={cx('title')}>HISTORY JOBS</p>
-                <FilterButton />
+                <FilterButton onClick={() => console.log(setActiveFilter(!activeFilter))} active={activeFilter} />
             </div>
-            <FilterTable active={false} />
-            <Table headerTable={titleTable} postsHistory={postsHistory} />
+            <FilterTable active={activeFilter} />
+            <Table headerTable={titleTable} postsHistory={postsHistory} className={cx('custom-table')} />
+            <footer className={cx('footer')}>
+                <p>{totalPosts} Active Jobs</p>
+
+                <Pagination postPerPage={postPerPage} totalPost={totalPosts} paginate={paginate} />
+                <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
+                    <option value="10">10/Page</option>
+                    <option value="20">20/Page</option>
+                    <option value="50">50/Page</option>
+                    <option value="100">100/Page</option>
+                </select>
+            </footer>
         </div>
     );
 }
