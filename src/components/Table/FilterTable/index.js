@@ -8,7 +8,7 @@ import { faAngleDown, faAngleUp, faCalendar, faCheck, faLayerGroup, faSearch } f
 const cx = classNames.bind(styles);
 
 function FilterTable({ active, handleFilter, handleCollapse, dataFilter = {}, onChangeValue }) {
-    const [date, setDate] = useState(new Date());
+    // const [date, setDate] = useState(new Date());
 
     const [activeCalendar, setActiveCalendar] = useState(true);
     // const [id, setId] = useState('');
@@ -32,7 +32,7 @@ function FilterTable({ active, handleFilter, handleCollapse, dataFilter = {}, on
                     <div className={cx('wrapper-input')}>
                         <input
                             placeholder="Pickup Date"
-                            value={date}
+                            // value={date}
                             onClick={(e) => {
                                 setActiveCalendar(!activeCalendar);
                                 console.log(e.target.value);
@@ -43,8 +43,8 @@ function FilterTable({ active, handleFilter, handleCollapse, dataFilter = {}, on
                         <Calendar
                             CalendarType="ISO 8601"
                             className={cx('calendar', { activeCalendar })}
-                            onChange={setDate}
-                            value={date}
+                            // onChange={setDate}
+                            // value={date}
                             onClickDay={() => {
                                 setActiveCalendar(!activeCalendar);
                             }}

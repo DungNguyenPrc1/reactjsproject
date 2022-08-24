@@ -6,16 +6,12 @@ const cx = classNames.bind(styles);
 
 function MenuItem({ data, onClick }) {
     const classes = cx('menu-item');
-    // console.log(data);
-
+    onClick = () => {};
     return (
         <div>
             <Button primary className={classes} onClick={onClick} leftIcon={data.icon}>
                 {data.title}
             </Button>
-            {/* <Button primary className={classes} onClick={onClick} leftIcon={data.icon}>
-                {data.children.title}
-            </Button> */}
         </div>
     );
 }

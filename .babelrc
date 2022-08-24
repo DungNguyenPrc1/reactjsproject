@@ -1,12 +1,13 @@
 {
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "alias": {
-          "~": "./src"
-        }
-      }
+    "plugins": [
+        ["import", { "libraryName": "antd", "libraryDirectory": "lib" }, "antd"],
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "~": "./src"
+                }
+            }
+        ]
     ]
-  ]
 }

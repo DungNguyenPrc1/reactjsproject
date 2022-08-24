@@ -34,8 +34,9 @@ function History() {
 
     const [postPerPage, setPostPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPosts, setTotalPosts] = useState();
+    const [totalPosts, setTotalPosts] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [totalPages, setTotalPages] = useState(1);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -51,6 +52,7 @@ function History() {
             );
             setPostsHistory(response?.data.data);
             setTotalPosts(response?.data.metadata.totalItems);
+            setTotalPages(response?.data.metadata.totalPages);
             console.log(response);
         };
         axiosData();
@@ -64,17 +66,8 @@ function History() {
             </div>
             <FilterTable active={activeFilter} />
             <Table headerTable={titleTable} postsHistory={postsHistory} className={cx('custom-table')} />
-            <footer className={cx('footer')}>
-                <p>{totalPosts} Active Jobs</p>
 
-                <Pagination postPerPage={postPerPage} totalPost={totalPosts} paginate={paginate} />
-                <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
-                    <option value="10">10/Page</option>
-                    <option value="20">20/Page</option>
-                    <option value="50">50/Page</option>
-                    <option value="100">100/Page</option>
-                </select>
-            </footer>
+            <Pagination totalPages={totalPages} paginate={paginate} totalPosts={totalPosts} />
         </div>
     );
 }

@@ -10,23 +10,13 @@ function Menu({ items = [] }) {
     // const [history, setHistory] = useState([{ data: items }]);
     // const currentItem = history[history.length - 1];
 
-    const [active, setActive] = useState(-1);
+    const [active, setActive] = useState(false);
     const [changeColor, setChangeColor] = useState(false);
 
     return items.map((item, index) => {
-        const handleClick = () => {
-            // if ((index = item.id)) {
-            //     setChangeColor(!changeColor);
-            // }
-        };
         return (
-            <div
-                className={cx('title')}
-                key={index}
-                style={{ background: changeColor ? '#ccc' : '' }}
-                onClick={handleClick}
-            >
-                <div>
+            <div className={cx('title')} key={index} style={{ background: changeColor ? '#ccc' : '' }}>
+                <div onClick={() => setActive(!active)}>
                     {item.path ? (
                         <Link to={`${item.path}`}>
                             <MenuItem data={item} />
@@ -36,12 +26,12 @@ function Menu({ items = [] }) {
                     )}
                 </div>
 
-                {index === active &&
+                {active &&
                     item.children?.map((item, index) => {
                         const abc = item.id;
                         return (
                             <div className={cx('title-childers')} key={index} onClick={() => console.log(abc)}>
-                                {item.title}
+                                <Link to={`${item.path}`}>{item.title}</Link>
                             </div>
                         );
                     })}

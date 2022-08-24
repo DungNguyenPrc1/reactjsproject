@@ -1,3 +1,9 @@
+.wrapper-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsla(0, 0%, 96.7%, 1);
+}
 .wrapper-paginate {
     display: flex;
     height: 64px;
@@ -29,30 +35,4 @@
 }
 .active-pagination {
     background: var(--primary);
-}
-.footer {
-    display: flex;
-    justify-content: space-between;
-    background-color: hsla(0, 0%, 89.7%, 0.9);
-    align-items: center;
-    padding: 0 20px;
-    & p {
-        padding: 0 5px;
-        font-weight: 600;
-    }
-}
-.select-btn {
-    background-color: hsla(0, 0%, 89.7%, 0.9);
-    height: 40px;
-    width: 92px;
-    padding: 0 10px;
-    font-size: 12px;
-    &:active {
-        border: solid 1px var(--primary);
-    }
-    &:hover {
-        border: solid 1px var(--primary);
-
-        cursor: pointer;
-    }
 }

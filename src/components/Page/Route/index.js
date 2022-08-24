@@ -1,6 +1,7 @@
 import styles from './Route.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
+import ReactPaginate from 'react-paginate';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -46,9 +47,14 @@ function Route() {
     const [postPerPage, setPostPerPage] = useState(10);
     const [totalPosts, setTotalPosts] = useState();
     const [dataFilter, setDataFilter] = useState({});
+    const [totalPages, setTotalPages] = useState(1);
     // const [filteredResult, setFilteredResult] = useState([]);
 
     const [filterActive, setFilterActive] = useState(false);
+
+    const handlePageClick = (e) => {
+        setCurrentPage(e.selected + 1);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -61,6 +67,7 @@ function Route() {
             setLists(response?.data.data);
             setTotalPosts(response?.data.metadata.totalItems);
             setLoading(false);
+            setTotalPages(response?.data.metadata.totalPages);
             console.log(response);
         };
 
@@ -91,9 +98,9 @@ function Route() {
 
         // console.log(filterData === {});
     };
-    const onChangePage = (page, value) => {
-        setCurrentPage({ ...currentPage, [page]: value });
-    };
+    // const onChangePage = (page, value) => {
+    //     setCurrentPage({ ...currentPage, [page]: value });
+    // };
 
     const onChangeValue = (type, value) => {
         setDataFilter({
@@ -101,7 +108,7 @@ function Route() {
             [type]: value,
         });
     };
-    console.log('dataFilter', dataFilter);
+    // console.log('dataFilter', dataFilter);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -144,7 +151,21 @@ function Route() {
 
             <footer className={cx('footer')}>
                 <p>{totalPosts} Active Jobs</p>
-                <Pagination postPerPage={postPerPage} totalPost={totalPosts} paginate={paginate} />
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel=" >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={totalPages}
+                    previousLabel="< "
+                    renderOnZeroPageCount={null}
+                    containerClassName={cx('wrapper-paginate')}
+                    pageLinkClassName={cx('wrapper-pageLink')}
+                    previousLinkClassName={cx('wrapper-changepage')}
+                    nextLinkClassName={cx('wrapper-changepage')}
+                    activeLinkClassName={cx('active-pagination')}
+                    disabledClassName={cx('disable')}
+                />
                 <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
                     <option value="10">10/Page</option>
                     <option value="20">20/Page</option>

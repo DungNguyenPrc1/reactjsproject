@@ -1,14 +1,31 @@
 .wrapper {
     overflow: scroll;
     height: 430px;
+    font-size: 14px;
 }
 .table {
     margin-top: 20px;
     background-color: #fff;
     white-space: nowrap;
+    height: 55px;
+}
+.table-head {
+    & th::before {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 1px;
+        height: 1.6em;
+        background-color: rgba(0, 0, 0, 0.06);
+        transform: translateY(-50%);
+        transition: background-color 0.3s;
+        content: '';
+    }
 }
 th:first-child {
     position: sticky;
+    // display: flex;
+    // float: left;
     left: 0;
     z-index: 10;
     background: #fff;
@@ -31,8 +48,17 @@ td:first-child {
     z-index: 20;
     background: #fff;
     padding: 10px 65px;
-    &:after {
-        box-shadow: inset 10px 0 8px -8px rgb(0 0 0 / 15%);
+    & td::after {
+        // box-shadow: inset 10px 0 8px -8px rgb(0 0 0 / 15%);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: -1px;
+        width: 30px;
+        transform: translateX(100%);
+        transition: box-shadow 0.3s;
+        content: '';
+        pointer-events: none;
     }
 }
 td:nth-last-child(2) {
@@ -71,10 +97,16 @@ table {
     border-collapse: collapse;
 }
 .list-item {
+    position: relative;
     background-color: #fff;
     border: none;
     white-space: nowrap;
+    & td::before {
+        position: absolute;
+        box-shadow: inset 10px 0 8px -8px rgb(0 0 0 / 15%);
+    }
 }
+
 .list-item > td {
     // display: flex;
     width: 88px;
