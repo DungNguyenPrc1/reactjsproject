@@ -43,7 +43,7 @@ function EditUserClients({ fullData }) {
 
         // console.log('item', newItems);
 
-        navigate('/admin/user/client');
+        navigate('/admin/users/clients');
     };
 
     useEffect(() => {
@@ -146,11 +146,6 @@ function EditUserClients({ fullData }) {
                                 <option value="admin">Super Admin</option>
                                 <option value="manager">Manager</option>
                             </select>
-                            {/* <input
-                                placeholder="Role"
-                                value={role.replace('admin', 'Super Admin')}
-                                onChange={(e) => setRole(e.target.value)}
-                            /> */}
                         </div>
                         <div className={cx('fill-infor-phone')}>
                             <label>Password</label>

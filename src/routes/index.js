@@ -9,6 +9,9 @@ import CreateClient from '~/components/Page/Company/CreateClient';
 import UserClient from '~/components/User/Client';
 import EditUserClients from '~/components/User/Client/EditUserClients';
 import CreateUserClient from '~/components/User/Client/CreateUserClient';
+import Territory from '~/components/User/Client/Territory';
+import Driver from '~/components/User/Client/Driver';
+import AdminUser from '~/components/User/Client/AdminUser';
 // import EditUserClients from '~/components/User/Client/EditClients';
 // import RequireAuth from '~/components/RequireAuth/RequireAuth';
 
@@ -21,8 +24,11 @@ const privateRoutes = [
     { path: '/admin/client', component: Company, layout: DefaultLayout },
     { path: '/admin/client/:id', component: EditClients, layout: DefaultLayout },
     { path: '/admin/client/new', component: CreateClient, layout: DefaultLayout },
-    { path: '/admin/user/client', component: UserClient, layout: DefaultLayout },
-    { path: '/admin/user/client/:id', component: EditUserClients, layout: DefaultLayout },
-    { path: '/admin/user/client/new', component: CreateUserClient, layout: DefaultLayout },
+    { path: '/admin/users/clients', component: UserClient, layout: DefaultLayout },
+    { path: '/admin/users/clients/:id', component: EditUserClients, layout: DefaultLayout },
+    { path: '/admin/users/clients/new', component: CreateUserClient, layout: DefaultLayout },
+    { path: '/admin/users/territories', component: Territory, layout: DefaultLayout },
+    { path: '/admin/users/drivers', component: Driver, layout: DefaultLayout },
+    { path: '/admin/users/admins', component: AdminUser, layout: DefaultLayout },
 ];
 export { publicRoutes, privateRoutes };

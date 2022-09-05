@@ -4,17 +4,21 @@
     display: flex;
     align-items: center;
     text-align: center;
-    background: var(--primary);
+    // background: var(--primary);
     cursor: pointer;
 
-    gap: 10px;
-    width: 360px;
-    color: #fff;
+    // gap: 10px;
+    // width: 360px;
+    // color: #fff;
     justify-content: center;
     + .wrapper {
         margin: 16px;
         padding: 16px;
     }
+}
+.main {
+    display: flex;
+    align-items: center;
 }
 .text {
     &:hover {
@@ -23,25 +27,34 @@
     }
 }
 .primary {
-    background-color: transparent;
-    // font-weight: 400;
+    background-color: #fff;
+    border: 1px solid var(--primary);
+    padding: 6px 7px;
+    height: 32px;
+    font-weight: 600;
+
     font-size: 14px;
     line-height: 20px;
-    // width: 0px;
-
-    // width: 228px;
-    // height: 48px;
+}
+.popular {
+    color: var(--primary);
+}
+.create {
+    background-color: var(--primary);
+    color: #fff;
 }
 
-.title {
-    padding-left: 30px;
-}
-.normal {
-    background-color: transparent;
-    font-size: 14px;
-    line-height: 20px;
-    padding-right: 30px;
+.border {
+    font-weight: 600;
+    padding: 4px;
+    width: 70px;
+    height: 24px;
+    border-radius: 12px;
+    font-size: 12px;
 }
 .rightIcon {
-    padding-left: 5px;
+    padding-left: 10px;
+}
+.leftIcon {
+    padding-right: 10px;
 }

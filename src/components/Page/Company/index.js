@@ -9,13 +9,14 @@ import FilterButton from '~/components/Table/FilterButton';
 import FilterTable from '~/components/Table/FilterTable';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
+import Pagination from '~/components/Pagination';
 
 const cx = classNames.bind(styles);
 
 function Company() {
-    const handlePageClick = (e) => {
-        // console.log(e.selected);
-        setCurrentPage(e.selected + 1);
+    const paginate = (pagenumber, postPerPage) => {
+        setCurrentPage(pagenumber);
+        setItemsPerPage(postPerPage);
     };
 
     const titleTable = [
@@ -28,6 +29,7 @@ function Company() {
     ];
 
     const [data, setData] = useState([]);
+    const [loadingClients, setloadingClients] = useState(false);
     const [totalItems, setTotalItems] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +39,7 @@ function Company() {
         dataAxios();
     }, [currentPage, itemsPerPage]);
     const dataAxios = async () => {
+        setloadingClients(true);
         let response = await axios.get(`/admin/clients?page=${currentPage}&pageSize=${itemsPerPage}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
             withCredentials: true,
@@ -45,6 +48,7 @@ function Company() {
         setItemsPerPage(response?.data?.metadata?.itemsPerPage);
         setCurrentPage(response?.data?.metadata?.currentPage);
         setTotalPages(response?.data?.metadata?.totalPages);
+        setloadingClients(false);
 
         setData(response?.data?.data);
     };
@@ -64,18 +68,27 @@ function Company() {
                 <div className="flex justify-center">
                     <FilterButton />
                     <Link to="/admin/client/new">
-                        <button className="flex border bg-primary text-white px-6 py-3 font-bold ">
-                            Create Client <FiPlus />
+                        <button className="flex border bg-primary text-white px-6 py-3 font-bold mx-8  ">
+                            <span>Create Client</span>
+                            <span className="px-1">
+                                <FiPlus />
+                            </span>
                         </button>
                     </Link>
                 </div>
             </div>
             <FilterTable active={false} />
             <div>
-                <Table headerTable={titleTable} postsClients={data} deleteItem={deleteItem} />
+                <Table
+                    headerTable={titleTable}
+                    postsClients={data}
+                    deleteItem={deleteItem}
+                    loadingClients={loadingClients}
+                />
             </div>
+            <Pagination totalPages={totalPages} totalPosts={totalItems} paginate={paginate} />
             <footer className={cx('wrapper-footer')}>
-                <span>ABC</span>
+                {/* <span>ABC</span>
                 <ReactPaginate
                     // className="flex "
                     breakLabel="..."
@@ -91,7 +104,7 @@ function Company() {
                     nextLinkClassName={cx('wrapper-changepage')}
                     activeLinkClassName={cx('paganate-active')}
                 />
-                <span>ABC</span>
+                <span>ABC</span> */}
             </footer>
         </div>
     );

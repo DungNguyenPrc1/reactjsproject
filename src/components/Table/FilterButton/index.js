@@ -10,7 +10,7 @@ function FilterButton({ onClick, active, className, ...passProps }) {
         onClick,
         ...passProps,
     };
-    const classes = cx('wrapper', { [className]: className, active });
+    const classes = cx('wrapper', { [className]: className }, { active });
     return (
         <div>
             <button className={classes} {...props}>

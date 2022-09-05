@@ -1,17 +1,7 @@
 import styles from './Route.module.scss';
 import classNames from 'classnames/bind';
-import Button from '~/components/Button';
-import ReactPaginate from 'react-paginate';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faArrowDown,
-    faArrowUp,
-    // faArrowUpRightFromSquare,
-    faCropAlt,
-    // faRoute,
-    // faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowUp, faCropAlt } from '@fortawesome/free-solid-svg-icons';
 
 import axios from '~/utils/request';
 import { useState, useEffect } from 'react';
@@ -19,6 +9,7 @@ import Pagination from '~/components/Pagination';
 import Table from '~/components/Table';
 import FilterButton from '~/components/Table/FilterButton';
 import FilterTable from '~/components/Table/FilterTable';
+import ModalExport from './ModalExport';
 
 const cx = classNames.bind(styles);
 
@@ -45,61 +36,64 @@ function Route() {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(10);
-    const [totalPosts, setTotalPosts] = useState();
+    const [totalPosts, setTotalPosts] = useState(0);
     const [dataFilter, setDataFilter] = useState({});
     const [totalPages, setTotalPages] = useState(1);
-    // const [filteredResult, setFilteredResult] = useState([]);
-
+    //logical filter
     const [filterActive, setFilterActive] = useState(false);
+    // logical Modal
+    const [isOpenExport, setIsOpenExport] = useState(false);
 
-    const handlePageClick = (e) => {
-        setCurrentPage(e.selected + 1);
+    const paginate = (currentPage, postPerPage) => {
+        setCurrentPage(currentPage);
+        setPostPerPage(postPerPage);
     };
+
+    const fetchData1 = async (id) => {
+        console.log(id);
+        setLoading(true);
+        let response = await axios.get(`https://flexioapi.afi.dev/api/routes/export/${id}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
+            withCredentials: true,
+        });
+    };
+
+    // const exportData = async () => {
+    //     try {
+    //         let response = await axios.get(`https://flexioapi.afi.dev/api/routes/export`, {
+    //             headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
+    //             withCredentials: true,
+    //         });
+    //         console.log('export', response);
+    //     } catch (error) {
+    //         console.log('some thing wrong');
+    //     }
+    // };
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
-            let response = await axios.get(`/admin/routes?page=${currentPage}&pageSize=${postPerPage}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
-                withCredentials: true,
-            });
+            try {
+                setLoading(true);
+                let response = await axios.get(`/admin/routes?page=${currentPage}&pageSize=${postPerPage}`, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
+                    withCredentials: true,
+                });
 
-            setLists(response?.data.data);
-            setTotalPosts(response?.data.metadata.totalItems);
-            setLoading(false);
-            setTotalPages(response?.data.metadata.totalPages);
-            console.log(response);
+                setLists(response?.data.data);
+                setTotalPosts(response?.data.metadata.totalItems);
+                setLoading(false);
+                setTotalPages(response?.data.metadata.totalPages);
+            } catch (error) {
+                console.log('some thing wrong');
+            }
+            // console.log(response);
         };
 
         fetchData();
     }, [currentPage, postPerPage]);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    const handleFilter = (e) => {
-        e.preventDefault();
-        // switch (dataFilter[type]) {
-        //     case 'id':
-        //         const filteredData = lists.filter((list) => {
-        //             list.id.toLowerCase().includes(dataFilter.id.toLowerCase());
-        //         });
-        //         setFilteredResult(filteredData);
-        // }
-        // const listsFilter = lists.filter((list) => {
-        //     return list?.id?.toLowerCase().includes(dataFilter.id.toLowerCase());
-        // console.log(list.id.toLowerCase().includes(dataFilter.id.toLowerCase()));
-
-        // switch (dataFilter)
-        // {
-        //     case id:
-
-        // }
-        // });
-
-        // console.log(filterData === {});
-    };
-    // const onChangePage = (page, value) => {
-    //     setCurrentPage({ ...currentPage, [page]: value });
+    // const handleFilter = (e) => {
+    //     e.preventDefault();
     // };
 
     const onChangeValue = (type, value) => {
@@ -109,6 +103,7 @@ function Route() {
         });
     };
     // console.log('dataFilter', dataFilter);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -120,60 +115,39 @@ function Route() {
                         onClick={() => {
                             setFilterActive(!filterActive);
                         }}
+                        className={cx('btn-filter')}
                     />
-                    <Button normal className={cx('route-btn-custom')} rightIcon={<FontAwesomeIcon icon={faArrowUp} />}>
-                        Import
-                    </Button>
-                    <Button
-                        normal
-                        rightIcon={<FontAwesomeIcon icon={faArrowDown} />}
-                        className={cx('route-btn-custom')}
-                    >
-                        Export
-                    </Button>
-                    <Button
-                        normal
-                        rightIcon={<FontAwesomeIcon icon={faCropAlt} />}
-                        className={cx('route-btn-custom-exc')}
-                    >
-                        Create New Job
-                    </Button>
+
+                    <button className={cx('route-btn-custom')} onClick={() => setIsOpenExport(true)}>
+                        <span>Export</span>
+                        <span>
+                            <FontAwesomeIcon icon={faArrowUp} />
+                        </span>
+                    </button>
+                    <button className={cx('route-btn-custom')}>
+                        <span>Import</span>
+                        <span>
+                            <FontAwesomeIcon icon={faArrowDown} />
+                        </span>
+                    </button>
+                    <button className={cx('route-btn-custom-exc')}>
+                        <span>Create New Job</span>
+                        <span>
+                            <FontAwesomeIcon icon={faCropAlt} />
+                        </span>
+                    </button>
                 </div>
             </div>
             <FilterTable
                 onChangeValue={onChangeValue}
                 dataFilter={dataFilter}
                 active={filterActive}
-                handleFilter={handleFilter}
+                // handleFilter={handleFilter}
             />
 
-            <Table headerTable={titleTable} postsTable={lists} loading={loading} />
-
-            <footer className={cx('footer')}>
-                <p>{totalPosts} Active Jobs</p>
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel=" >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={totalPages}
-                    previousLabel="< "
-                    renderOnZeroPageCount={null}
-                    containerClassName={cx('wrapper-paginate')}
-                    pageLinkClassName={cx('wrapper-pageLink')}
-                    previousLinkClassName={cx('wrapper-changepage')}
-                    nextLinkClassName={cx('wrapper-changepage')}
-                    activeLinkClassName={cx('active-pagination')}
-                    disabledClassName={cx('disable')}
-                />
-                <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
-                    <option value="10">10/Page</option>
-                    <option value="20">20/Page</option>
-                    <option value="50">50/Page</option>
-                    <option value="100">100/Page</option>
-                </select>
-                {/* <Select options={options} onChange={(value) => setPostPerPage(value.value)} /> */}
-            </footer>
+            <Table headerTable={titleTable} postsTable={lists} loading={loading} getItemId={fetchData1} />
+            {totalPosts > 0 && <Pagination totalPages={totalPages} totalPosts={totalPosts} paginate={paginate} />}
+            <ModalExport open={isOpenExport} onClose={() => setIsOpenExport(false)} />
         </div>
     );
 }

@@ -34,7 +34,7 @@ function History() {
 
     const [postPerPage, setPostPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPosts, setTotalPosts] = useState(1);
+    const [totalPosts, setTotalPosts] = useState();
     const [loading, setLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -53,7 +53,9 @@ function History() {
             setPostsHistory(response?.data.data);
             setTotalPosts(response?.data.metadata.totalItems);
             setTotalPages(response?.data.metadata.totalPages);
-            console.log(response);
+            setLoading(false);
+
+            // console.log(post);
         };
         axiosData();
     }, []);
@@ -65,9 +67,9 @@ function History() {
                 <FilterButton onClick={() => console.log(setActiveFilter(!activeFilter))} active={activeFilter} />
             </div>
             <FilterTable active={activeFilter} />
-            <Table headerTable={titleTable} postsHistory={postsHistory} className={cx('custom-table')} />
+            <Table headerTable={titleTable} postsHistory={postsHistory} loadingHistory={loading} />
 
-            <Pagination totalPages={totalPages} paginate={paginate} totalPosts={totalPosts} />
+            {totalPosts > 0 && <Pagination totalPages={totalPages} paginate={paginate} totalPosts={totalPosts} />}
         </div>
     );
 }

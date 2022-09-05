@@ -7,6 +7,9 @@
     width: 1056px;
     height: 422px;
     display: none;
+    margin-bottom: 24px;
+    border: 1px;
+    border-radius: 4px;
 
     &.active {
         display: flex;

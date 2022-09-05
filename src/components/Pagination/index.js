@@ -1,24 +1,26 @@
 import styles from './Pagination.module.scss';
 import classNames from 'classnames/bind';
 import ReactPaginate from 'react-paginate';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Pagination({ totalPages, totalPosts, paginate }) {
     const [currentPages, setCurrentPages] = useState(1);
     const [postPerPage, setPostPerPage] = useState(10);
-    // console.log(currentPages);
+    console.log('testing ', currentPages);
 
     const handlePageClick = (e) => {
-        // console.log('test pagniate', e.selected);
         setCurrentPages(e.selected + 1);
     };
     paginate(currentPages, postPerPage);
+    // paginate = (currentPages, postPerPage) => {
+    //     console.log('avc111');
+    // };
     return (
         <footer className={cx('footer')}>
             <div className="flex">
-                <p>{totalPosts} </p>
+                <p>{totalPosts > 0 ? totalPosts : ''} </p>
                 <span>Active Jobs</span>
             </div>
             <ReactPaginate
@@ -28,7 +30,7 @@ function Pagination({ totalPages, totalPosts, paginate }) {
                 pageRangeDisplayed={5}
                 pageCount={totalPages}
                 previousLabel="< "
-                renderOnZeroPageCount={null}
+                // renderOnZeroPageCount={null}
                 containerClassName={cx('wrapper-paginate')}
                 pageLinkClassName={cx('wrapper-pageLink')}
                 previousLinkClassName={cx('wrapper-changepage')}

@@ -11,30 +11,43 @@ function Menu({ items = [] }) {
     // const currentItem = history[history.length - 1];
 
     const [active, setActive] = useState(false);
-    const [changeColor, setChangeColor] = useState(false);
+
+    const [activeIndex, setActiveIndex] = useState();
 
     return items.map((item, index) => {
         return (
-            <div className={cx('title')} key={index} style={{ background: changeColor ? '#ccc' : '' }}>
-                <div onClick={() => setActive(!active)}>
-                    {item.path ? (
-                        <Link to={`${item.path}`}>
+            <div
+                className={cx('title')}
+                key={index}
+                onClick={() => (item.children ? setActive(!active) : setActive(false))}
+            >
+                <div
+                    className={item.id === activeIndex ? cx('focus') : ''}
+                    onClick={() => item.path && setActiveIndex(index)}
+                >
+                    {
+                        item.path ? (
+                            <Link to={`${item.path}`}>
+                                <MenuItem data={item} />
+                            </Link>
+                        ) : item.children ? (
                             <MenuItem data={item} />
-                        </Link>
-                    ) : (
-                        <MenuItem data={item} />
-                    )}
+                        ) : (
+                            <div style={{ pointerEvents: 'none', cursor: 'not-allowed' }}>
+                                <MenuItem data={item} />
+                            </div>
+                        )
+                        // <MenuItem data={item} />
+                    }
                 </div>
 
-                {active &&
-                    item.children?.map((item, index) => {
-                        const abc = item.id;
-                        return (
-                            <div className={cx('title-childers')} key={index} onClick={() => console.log(abc)}>
-                                <Link to={`${item.path}`}>{item.title}</Link>
-                            </div>
-                        );
-                    })}
+                {item.children?.map((item, index) => {
+                    return (
+                        <div className={cx('title-childers', { active })} key={index}>
+                            <Link to={`${item.path}`}>{item.title}</Link>
+                        </div>
+                    );
+                })}
             </div>
         );
     });

@@ -2,13 +2,11 @@ import styles from './Main.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import logo from '~/asset/images/logosvg.svg';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-
-import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import axios from '~/utils/request';
-// import Admin from '../Page/Admin';
-import useAuth from '~/hooks/useAuth';
-// import RequireAuth from '../RequireAuth/RequireAuth';
+import { useAuth } from '~/components/Context/AuthProvider';
+import ModalSpinner from '../ModalSpinner';
 
 const cx = classNames.bind(styles);
 // const EMAIL_REGEX = /^[a-z][^\W_]{7,14}$/;
@@ -19,38 +17,52 @@ const cx = classNames.bind(styles);
 function Main() {
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
-    const { setAuth } = useAuth();
+    // const from = location.state?.from?.pathname || '/';
+    const auth = useAuth();
     const [user, setUser] = useState();
     const [email, setEmail] = useState('');
 
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [errorMsg, setErrorMsg] = useState('');
     const [success, setSuccess] = useState(false);
-    // <RequireAuth auth={'1'} />;
+    // const [isLogIn, setIsLogIn] = useState(false);
 
     const logAdmin = {
         email: email,
         password: password,
     };
+    // useEffect(() => {
+    //     const loggedInUser = localStorage.getItem('user');
+    //     if (loggedInUser) {
+    //         const foundUser = JSON.parse(loggedInUser);
+    //         setUser(foundUser);
+    //     }
+    // }, []);
 
     const loginUser = async (e) => {
         e.preventDefault();
+
         try {
+            setLoading(true);
             const response = await axios.post('/admin/auth/login', JSON.stringify(logAdmin), {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            console.log(response.data);
+            // const roles = response?.data?.roles
+            // console.log(response.data);
             setSuccess(true);
             setEmail('');
             setPassword('');
             setUser(response.data);
-            setAuth({ email, password, roles, accessToken });
-            navigate(from, { replace: true });
+            // setIsLogIn({ email, password, roles, accessToken });
+
+            auth.login((prev) => true);
+            // navigate(from, { replace: true });
+            setLoading(false);
+            navigate('/admin');
             localStorage.setItem('user', accessToken);
         } catch (err) {
             if (!err?.response) {
@@ -70,7 +82,7 @@ function Main() {
             <img src={logo} alt="abc" className={cx('logo')} />
             <div className={cx('content')}>
                 {success ? (
-                    window.location.assign('http://localhost:3000/admin')
+                    <ModalSpinner /> & window.location.assign('http://localhost:3000/admin')
                 ) : (
                     <>
                         <section>

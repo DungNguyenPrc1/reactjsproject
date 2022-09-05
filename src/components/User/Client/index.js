@@ -27,6 +27,7 @@ function UserClient() {
         { id: 6, title: '' },
     ];
     const [dataUserClient, setDataUserClient] = useState([]);
+    const [loadingUserClient, setLoadingUserClient] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPosts, setTotalPosts] = useState(1);
@@ -44,6 +45,8 @@ function UserClient() {
     };
     useEffect(() => {
         const dataAxios = async () => {
+            setLoadingUserClient(true);
+
             const response = await axios.get(`/admin/users?group=client&page=${currentPage}&pageSize=${postPerPage}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('user')}` },
                 withCredentials: true,
@@ -51,6 +54,7 @@ function UserClient() {
             setTotalPages(response?.data?.metadata?.totalPages);
             setTotalPosts(response?.data?.metadata?.totalItems);
             setDataUserClient(response?.data?.data);
+            setLoadingUserClient(false);
             // console.log('nest', totalPosts);
         };
 
@@ -77,14 +81,22 @@ function UserClient() {
                     </button>
                     <FilterButton className={cx('btn-filter')} />
 
-                    <Link to="/admin/user/client/new">
+                    <Link to="/admin/users/clients/new">
                         <button className={cx('btn-create')}>
-                            Create Client User <FiPlus />
+                            <span>Create Client User</span>
+                            <span>
+                                <FiPlus />
+                            </span>
                         </button>
                     </Link>
                 </div>
             </div>
-            <Table headerTable={titleTable} className={cx('customize-table')} postUserEdit={dataUserClient} />
+            <Table
+                headerTable={titleTable}
+                className={cx('customize-table')}
+                postUserEdit={dataUserClient}
+                loadingUserClient={loadingUserClient}
+            />
 
             <Pagination totalPages={totalPages} totalPosts={totalPosts} paginate={paginate} />
         </div>

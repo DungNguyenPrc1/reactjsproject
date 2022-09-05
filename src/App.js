@@ -1,12 +1,17 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from '~/routes';
+import { AuthProvider } from './components/Context/AuthProvider';
+import { useAuth } from '~/components/Context/AuthProvider';
+
 import DefaultLayout from './components/Page/Admin/DefaultLayout';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 // import {Fragment} from 'react-d'
 // import Main from '~/components/Main';
 
 function App() {
+    const auth = useAuth();
+    // console.log('coithudungchua', auth);
     return (
         <Router>
             <Routes>

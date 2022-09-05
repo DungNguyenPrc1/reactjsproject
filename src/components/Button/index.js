@@ -6,16 +6,16 @@ const cx = classNames.bind(styles);
 
 function Button({
     children,
-    normal = false,
-    title = false,
+    border = false,
+    popular,
     to,
     href,
+    create,
     item = false,
-
     primary = false,
     className,
-    leftIcon,
-    rightIcon,
+    leftIcon = false,
+    rightIcon = false,
     onClick,
     ...passPros
 }) {
@@ -28,10 +28,10 @@ function Button({
         props.href = href;
         Comp = 'a';
     }
-    const classes = cx('wrapper', { normal, primary, item, [className]: className });
+    const classes = cx('wrapper', { primary, popular, item, create, border, [className]: className });
     return (
         <Comp className={classes} {...props}>
-            <span>
+            <span className={cx('main')}>
                 {leftIcon && <span className={cx('leftIcon')}>{leftIcon}</span>}
                 <span className={cx('title')}>{children}</span>
 
