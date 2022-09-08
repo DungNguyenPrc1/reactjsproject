@@ -3,7 +3,7 @@ import { useAuth } from '~/components/Context/AuthProvider';
 
 function RequireAuth() {
     const auth = useAuth();
-    return auth.user ? <Outlet /> : <Navigate to="/" />;
+    return auth.user ? <Outlet /> : localStorage.getItem('user') ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default RequireAuth;

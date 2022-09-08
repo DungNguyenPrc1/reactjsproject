@@ -89,7 +89,7 @@ function Table({
                                             >
                                                 {<FontAwesomeIcon icon={faCircle} />} {list?.status.replace('a', 'A')}
                                             </div>
-                                        ) : list.status === 'cancel' ? (
+                                        ) : list.status === 'canceled' ? (
                                             <div
                                                 style={{
                                                     backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -102,7 +102,7 @@ function Table({
                                                     padding: '4px 8px',
                                                 }}
                                             >
-                                                {<FontAwesomeIcon icon={faCircle} />} {list?.status.replace('c', 'C')}
+                                                <FontAwesomeIcon icon={faCircle} /> {list?.status.replace('c', 'C')}
                                             </div>
                                         ) : list.status === 'in-progress' ? (
                                             <div
@@ -170,6 +170,14 @@ function Table({
                                                 <FontAwesomeIcon icon={faRoute} />
                                                 <BsFillTrashFill />
                                                 <AiOutlineArrowRight />
+                                            </div>
+                                        ) : list.status === 'canceled' ? (
+                                            <div style={{ padding: '10px', backgroundColor: 'white' }}>
+                                                <FontAwesomeIcon
+                                                    icon={faArrowUpRightFromSquare}
+                                                    onClick={() => getItemId(list?.id)}
+                                                />
+                                                <FontAwesomeIcon icon={faRoute} />
                                             </div>
                                         ) : (
                                             <div style={{ padding: '10px', backgroundColor: 'white' }}>
@@ -285,6 +293,17 @@ function Table({
                                         {list?.role === 'admin' ? (
                                             <span style={{ width: '112px' }}>
                                                 {list?.role.replace('admin', 'Super Admin')}
+                                            </span>
+                                        ) : list?.role === 'manager' ? (
+                                            <span
+                                                style={{
+                                                    width: '112px',
+                                                    backgroundColor: 'rgba(247, 139, 15, 0.2)',
+                                                    color: 'rgb(247, 139, 15)',
+                                                    fontWeight: '600',
+                                                }}
+                                            >
+                                                {list?.role.replace('manager', 'Manager')}
                                             </span>
                                         ) : (
                                             <span

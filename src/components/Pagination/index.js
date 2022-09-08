@@ -30,14 +30,16 @@ function Pagination({ totalPages, totalPosts, paginate }) {
                 pageRangeDisplayed={5}
                 pageCount={totalPages}
                 previousLabel="< "
-                // renderOnZeroPageCount={null}
+                renderOnZeroPageCount={null}
                 containerClassName={cx('wrapper-paginate')}
                 pageLinkClassName={cx('wrapper-pageLink')}
                 previousLinkClassName={cx('wrapper-changepage')}
                 nextLinkClassName={cx('wrapper-changepage')}
                 activeLinkClassName={cx('active-pagination')}
                 disabledClassName={cx('disable')}
+                activeClassName={cx('activeNumber')}
             />
+
             <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
                 <option value="10">10/Page</option>
                 <option value="20">20/Page</option>

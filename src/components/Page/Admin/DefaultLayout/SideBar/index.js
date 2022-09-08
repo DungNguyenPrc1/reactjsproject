@@ -15,27 +15,28 @@ const MENU_ITEM = [
     { id: 2, icon: <FaHistory />, title: 'History', path: '/admin/history' },
     { id: 3, icon: <FaNewspaper />, title: 'Clients', path: '/admin/client' },
     {
+        submenu: 0,
         icon: <BiUserCircle />,
         title: 'Users',
         children: [
             {
-                id: 1,
+                id: 0,
                 title: 'Client',
                 path: '/admin/users/clients',
             },
             {
-                id: 2,
+                id: 1,
                 title: 'Territory',
                 path: '/admin/users/territories',
             },
 
             {
-                id: 3,
+                id: 2,
                 title: 'Driver',
                 path: '/admin/users/drivers',
             },
             {
-                id: 4,
+                id: 3,
                 title: 'Admin',
                 path: '/admin/users/admins',
             },
@@ -45,6 +46,7 @@ const MENU_ITEM = [
     { id: 5, icon: <BiMessageAltDetail />, title: 'Message' },
     { id: 6, icon: <AiOutlineNotification />, title: 'Notifications' },
     {
+        id: -1,
         icon: <AiOutlineSetting />,
         title: 'Setting',
         children: [
