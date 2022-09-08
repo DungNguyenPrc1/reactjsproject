@@ -1,17 +1,79 @@
-.cover-btn-pagination {
+.wrapper-paginate {
     display: flex;
+    height: 64px;
     justify-content: center;
     align-items: center;
-}
-.btn-pagination {
-    list-style: none;
-    padding: 10px;
-    border: solid 1px;
-    margin: 5px;
-    &:hover {
-        border: solid 1px var(--primary);
+    & li {
+        margin-left: 8px;
     }
 }
-.btn-pagination > a {
-    padding: 10px;
+.wrapper-pageLink {
+    height: 36px;
+    display: flex;
+    width: 36px;
+    padding: 0px 16px;
+    background: var(--primary);
+    color: #000;
+    background-color: #fff;
+    line-height: 36px;
+    justify-content: center;
+    &:target {
+        background-color: var(--primary);
+        color: #fff;
+        font-weight: 600;
+    }
+}
+.activeNumber {
+    background-color: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    & a {
+        color: #fff;
+    }
+}
+.wrapper-changepage {
+    height: 36px;
+    display: flex;
+    width: 36px;
+    padding: 0px 16px;
+    background-color: inherit !important;
+    // background: var(--primary);
+    // color: #fff;
+    line-height: 36px;
+    justify-content: center;
+}
+.active-pagination {
+    background: var(--primary);
+}
+.disable {
+    cursor: not-allowed;
+    & a {
+        pointer-events: none;
+    }
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: hsla(0, 0%, 89.7%, 0.9);
+    align-items: center;
+    padding: 0 20px;
+    & p {
+        padding: 0 5px;
+        font-weight: 600;
+    }
+}
+.select-btn {
+    background-color: hsla(0, 0%, 89.7%, 0.9);
+    height: 40px;
+    width: 92px;
+    padding: 0 10px;
+    font-size: 12px;
+    &:active {
+        border: solid 1px var(--primary);
+    }
+    &:hover {
+        border: solid 1px var(--primary);
+
+        cursor: pointer;
+    }
 }

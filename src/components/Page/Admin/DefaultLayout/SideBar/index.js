@@ -1,68 +1,70 @@
 import styles from './SideBar.module.scss';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRegistered } from '@fortawesome/free-solid-svg-icons';
-import { faBell, faCircleUser, faMessage, faPaperPlane, faUser } from '@fortawesome/free-regular-svg-icons';
+import { BiMenu, BiUserCircle, BiMessageAltDetail } from 'react-icons/bi';
+import { AiOutlineSetting, AiOutlineNotification } from 'react-icons/ai';
+
+import { FaHistory, FaNewspaper } from 'react-icons/fa';
+
 import Menu from '~/components/Page/Menu';
 
 const cx = classNames.bind(styles);
 const MENU_ITEM = [
-    { id: 0, icon: <FontAwesomeIcon icon={faRegistered} />, title: 'Dashboard', path: '/admin' },
-    { id: 1, icon: <FontAwesomeIcon icon={faPaperPlane} />, title: 'Active Job', path: '/admin/route' },
+    { id: 0, icon: <BiMenu />, title: 'Dashboard', path: '/admin' },
+    { id: 1, icon: <FaNewspaper />, title: 'Active Job', path: '/admin/route' },
 
-    { id: 2, icon: <FontAwesomeIcon icon={faCircleUser} />, title: 'History', path: '/admin/history' },
-    { id: 3, icon: <FontAwesomeIcon icon={faCircleUser} />, title: 'Clients', path: '/admin/client' },
+    { id: 2, icon: <FaHistory />, title: 'History', path: '/admin/history' },
+    { id: 3, icon: <FaNewspaper />, title: 'Clients', path: '/admin/client' },
     {
-        id: 4,
-        icon: <FontAwesomeIcon icon={faUser} />,
+        submenu: 0,
+        icon: <BiUserCircle />,
         title: 'Users',
         children: [
             {
-                id: 1,
+                id: 0,
                 title: 'Client',
-                path: '/admin/user/client',
+                path: '/admin/users/clients',
             },
             {
-                id: 2,
+                id: 1,
                 title: 'Territory',
-                path: '/admin/user/territory',
+                path: '/admin/users/territories',
             },
 
             {
-                id: 3,
+                id: 2,
                 title: 'Driver',
-                path: '/admin/user/driver',
+                path: '/admin/users/drivers',
             },
             {
-                id: 4,
+                id: 3,
                 title: 'Admin',
-                path: '/admin/user/admins',
+                path: '/admin/users/admins',
             },
         ],
     },
 
-    { id: 5, icon: <FontAwesomeIcon icon={faMessage} />, title: 'Message' },
-    { id: 6, icon: <FontAwesomeIcon icon={faBell} />, title: 'Notifications', path: '/admin/notification' },
+    { id: 5, icon: <BiMessageAltDetail />, title: 'Message' },
+    { id: 6, icon: <AiOutlineNotification />, title: 'Notifications' },
     {
-        id: 7,
-        icon: <FontAwesomeIcon icon={faBell} />,
+        id: -1,
+        icon: <AiOutlineSetting />,
         title: 'Setting',
         children: [
             {
-                id: 1,
+                id: 0,
                 title: 'Territories',
             },
             {
-                id: 2,
+                id: 1,
                 title: 'Package Types',
             },
 
             {
-                id: 3,
+                id: 2,
                 title: 'Vehicle Categories',
             },
             {
-                id: 4,
+                id: 3,
                 title: 'Services',
             },
         ],

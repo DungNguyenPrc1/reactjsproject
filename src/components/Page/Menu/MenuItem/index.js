@@ -4,17 +4,15 @@ import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data, onClick }) {
-    const classes = cx('menu-item');
-    // console.log(data);
+function MenuItem({ data }) {
+    const classes = cx('wrapper');
 
     return (
-        <div>
-            <Button primary className={classes} onClick={onClick} leftIcon={data.icon}>
-                {data.title}
-            </Button>
+        <div className={classes}>
+            <span>{data.icon}</span>
+            <span>{data.title}</span>
             {/* <Button primary className={classes} onClick={onClick} leftIcon={data.icon}>
-                {data.children.title}
+                {data.title}
             </Button> */}
         </div>
     );

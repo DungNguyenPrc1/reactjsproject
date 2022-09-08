@@ -1,5 +1,6 @@
-const { override,useBabelRc } = require("customize-cra");
+const { override, useBabelRc, addLessLoader } = require('customize-cra');
 
 module.exports = override(
-    useBabelRc()
+    useBabelRc(),
+    addLessLoader({ modifyVars: { '@primary-color': '#fff' }, javascriptEnabled: true }),
 );

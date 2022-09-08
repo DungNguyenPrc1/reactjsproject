@@ -1,64 +1,52 @@
 import styles from './Pagination.module.scss';
 import classNames from 'classnames/bind';
-import { useState, useReducer } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import ReactPaginate from 'react-paginate';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'decrement':
-            return { page: state.page - 1 };
-        case 'increase':
-            return { page: state.page + 1 };
-        default:
-            return state;
-    }
-};
 
-function Pagination({ postPerPage, totalPost, paginate }) {
-    const [state, dispatch] = useReducer(reducer, { page: 1 });
-    const [currentPage, setCurrentPage] = useState(1);
-    // console.log('abc', state, { page });
+function Pagination({ totalPages, totalPosts, paginate }) {
+    const [currentPages, setCurrentPages] = useState(1);
+    const [postPerPage, setPostPerPage] = useState(10);
+    console.log('testing ', currentPages);
 
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(totalPost / postPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
-    const handleBack = (e) => {
-        // console.log(e.target);
-        // dispatch({ type: 'decrement' });
+    const handlePageClick = (e) => {
+        setCurrentPages(e.selected + 1);
     };
-    const handleNext = (e) => {
-        // onChangePage('page', e.target.value);
-        // dispatch({ type: 'increase' });
-    };
-
+    paginate(currentPages, postPerPage);
+    // paginate = (currentPages, postPerPage) => {
+    //     console.log('avc111');
+    // };
     return (
-        <ul className={cx('cover-btn-pagination')}>
-            <button disabled={state.currentPage <= 1} onClick={handleBack}>
-                <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            {pageNumbers.map((page, i) => {
-                return (
-                    <li className={cx('btn-pagination')} key={i}>
-                        {/* {setCurrentPage(page)} */}
-                        <a
-                            onClick={() => {
-                                return paginate(page);
-                            }}
-                            href="##"
-                        >
-                            {page}
-                        </a>
-                    </li>
-                );
-            })}
-            <button disabled={state.currentPage > pageNumbers.length} onClick={handleNext}>
-                <FontAwesomeIcon icon={faAngleRight} />
-            </button>
-        </ul>
+        <footer className={cx('footer')}>
+            <div className="flex">
+                <p>{totalPosts > 0 ? totalPosts : ''} </p>
+                <span>Active Jobs</span>
+            </div>
+            <ReactPaginate
+                breakLabel="..."
+                nextLabel=" >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={totalPages}
+                previousLabel="< "
+                renderOnZeroPageCount={null}
+                containerClassName={cx('wrapper-paginate')}
+                pageLinkClassName={cx('wrapper-pageLink')}
+                previousLinkClassName={cx('wrapper-changepage')}
+                nextLinkClassName={cx('wrapper-changepage')}
+                activeLinkClassName={cx('active-pagination')}
+                disabledClassName={cx('disable')}
+                activeClassName={cx('activeNumber')}
+            />
+
+            <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
+                <option value="10">10/Page</option>
+                <option value="20">20/Page</option>
+                <option value="50">50/Page</option>
+                <option value="100">100/Page</option>
+            </select>
+        </footer>
     );
 }
 

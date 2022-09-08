@@ -36,6 +36,7 @@ function History() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPosts, setTotalPosts] = useState();
     const [loading, setLoading] = useState(false);
+    const [totalPages, setTotalPages] = useState(1);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -51,7 +52,10 @@ function History() {
             );
             setPostsHistory(response?.data.data);
             setTotalPosts(response?.data.metadata.totalItems);
-            console.log(response);
+            setTotalPages(response?.data.metadata.totalPages);
+            setLoading(false);
+
+            // console.log(post);
         };
         axiosData();
     }, []);
@@ -63,18 +67,9 @@ function History() {
                 <FilterButton onClick={() => console.log(setActiveFilter(!activeFilter))} active={activeFilter} />
             </div>
             <FilterTable active={activeFilter} />
-            <Table headerTable={titleTable} postsHistory={postsHistory} className={cx('custom-table')} />
-            <footer className={cx('footer')}>
-                <p>{totalPosts} Active Jobs</p>
+            <Table headerTable={titleTable} postsHistory={postsHistory} loadingHistory={loading} />
 
-                <Pagination postPerPage={postPerPage} totalPost={totalPosts} paginate={paginate} />
-                <select onChange={(e) => setPostPerPage(e.target.value)} className={cx('select-btn')}>
-                    <option value="10">10/Page</option>
-                    <option value="20">20/Page</option>
-                    <option value="50">50/Page</option>
-                    <option value="100">100/Page</option>
-                </select>
-            </footer>
+            {totalPosts > 0 && <Pagination totalPages={totalPages} paginate={paginate} totalPosts={totalPosts} />}
         </div>
     );
 }

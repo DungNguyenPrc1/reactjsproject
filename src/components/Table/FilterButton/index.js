@@ -5,13 +5,15 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function FilterButton({ onClick, active }) {
-    const handleClick = () => {
-        return onClick();
+function FilterButton({ onClick, active, className, ...passProps }) {
+    const props = {
+        onClick,
+        ...passProps,
     };
+    const classes = cx('wrapper', { [className]: className }, { active });
     return (
         <div>
-            <button onClick={handleClick} className={cx('wrapper', { active })}>
+            <button className={classes} {...props}>
                 Filter <FontAwesomeIcon icon={faFilter} />
             </button>
         </div>

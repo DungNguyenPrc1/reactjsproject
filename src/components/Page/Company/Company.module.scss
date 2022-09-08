@@ -1,0 +1,38 @@
+.wrapper-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsla(0, 0%, 96.7%, 1);
+}
+.wrapper-paginate {
+    display: flex;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+    & li {
+        padding-left: 8px;
+    }
+}
+.wrapper-pageLink {
+    height: 36px;
+    display: flex;
+    width: 36px;
+    padding: 0px 16px;
+    background: var(--primary);
+    color: #fff;
+    line-height: 36px;
+    justify-content: center;
+}
+.wrapper-changepage {
+    height: 36px;
+    display: flex;
+    width: 36px;
+    padding: 0px 16px;
+    // background: var(--primary);
+    // color: #fff;
+    line-height: 36px;
+    justify-content: center;
+}
+.active-pagination {
+    background: var(--primary);
+}

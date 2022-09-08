@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '~/components/Context/AuthProvider';
 
 function RequireAuth() {
-    let auth = { auth: true };
-    return auth.auth ? <Outlet /> : <Navigate to="/" />;
+    const auth = useAuth();
+    return auth.user ? <Outlet /> : localStorage.getItem('user') ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default RequireAuth;

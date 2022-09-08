@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 56px;
+}
+
+.header-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 4px;
+    font-weight: 600;
+    align-items: center;
+    width: 130px;
+    & span:first-child {
+        color: rgba(0, 0, 0, 0.45);
+    }
+    & span:last-child {
+        color: var(--primary);
+    }
+}
+.btn {
+    display: flex;
+    gap: 16px;
+}
